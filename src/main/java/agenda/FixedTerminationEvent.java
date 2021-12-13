@@ -31,6 +31,7 @@ public class FixedTerminationEvent extends RepetitiveEvent {
          super(title, start, duration, frequency);
          numberOfOccurrences = terminaisonInclusive.minus(start + 1, frequency);
          this.terminationInclusive = terminationInclusive;
+         
 
     }
 
