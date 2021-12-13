@@ -42,7 +42,7 @@ public class Event {
     public boolean isInDay(LocalDate aDay) {
         boolean isInDay = true;
         LocalDateTime end = myStart.plus(myDuration);        
-        if ((myStart.toLocalDate().compareTo(aDay)<0) || (end.toLocalDate().compareTo(aDay)>0)){
+        if ((myStart.toLocalDate().compareTo(aDay)<0) && (end.toLocalDate().compareTo(aDay)>0)){
             isInDay = false;
         }
         return isInDay;
@@ -70,6 +70,12 @@ public class Event {
         return myDuration;
     }
 
+    @Override
+    public String toString() {
+        return "Event{" + "myTitle=" + myTitle + ", myStart=" + myStart + ", myDuration=" + myDuration + '}';
+    }
+
+    
    
     
 }
