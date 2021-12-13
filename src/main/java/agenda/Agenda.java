@@ -28,7 +28,7 @@ public class Agenda {
      */
     public List<Event> eventsInDay(LocalDate day) {
         List<Event> eventsInDay = new ArrayList<Event>();
-        for (Event events : events){
+        for (Event e : events){
             if (e.isInDay(day) == true) {
                 eventsInDay.add(e);
             }
