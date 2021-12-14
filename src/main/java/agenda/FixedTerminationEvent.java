@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.time.Period;
 
 /**
  * Description : A repetitive event that terminates after a given date, or after
@@ -30,10 +31,16 @@ public class FixedTerminationEvent extends RepetitiveEvent {
     public FixedTerminationEvent(String title, LocalDateTime start, Duration duration, ChronoUnit frequency, LocalDate terminationInclusive) {
          super(title, start, duration, frequency);
          this.terminationInclusive = terminationInclusive;
-         numberOfOccurrences = 0;
-         LocalDateTime dateDebut = start;
-         for (dateDebut.toLocalDate(); dateDebut.toLocalDate().compareTo(terminationInclusive)>0; dateDebut.toLocalDate().plus(1, frequency)){
-              numberOfOccurrences += 1;
+         LocalDate nStart = start.toLocalDate();
+         long between = ChronoUnit.DAYS.between(nStart, terminationInclusive);
+         if (frequency.equals(ChronoUnit.DAYS)) {
+            numberOfOccurrences = ChronoUnit.DAYS.between(nStart, terminationInclusive) + 1;
+         }
+         if (frequency.equals(ChronoUnit.WEEKS)) {
+            numberOfOccurrences = ChronoUnit.WEEKS.between(nStart, terminationInclusive) + 1;
+         }
+         if (frequency.equals(ChronoUnit.MONTHS)) {
+            numberOfOccurrences = ChronoUnit.MONTHS.between(nStart, terminationInclusive) + 1;
          }
     }
 
