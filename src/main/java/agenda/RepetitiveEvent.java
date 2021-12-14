@@ -35,10 +35,39 @@ public class RepetitiveEvent extends Event {
      * @param date the event will not occur at this date
      */
     public void addException(LocalDate date) {
-        if (isInDay(date)==true){
-            listException.add(date);
+        listException.add(date);
         }
+    
+     @Override
+    public boolean isInDay(LocalDate date) {
+        boolean isInDay = false;
+        if (super.isInDay(date) == true) {
+            return true;
+        }
+        for (LocalDate d : listException) {
+            if (d.equals(date)) {
+                return false;
+            }
+        }
+        LocalDate start = myStart.toLocalDate();
+        while (date.isAfter(start)||date.equals(start)) {
+            if (super.isInDay(start) == true) {
+                return true;
+            }
+            if (frequency == ChronoUnit.DAYS) {
+                start = start.plusDays(1);
+            }
+            if (frequency == ChronoUnit.WEEKS) {
+                start = start.plusWeeks(1);
+            }
+            if (frequency == ChronoUnit.MONTHS) {
+                start = start.plusMonths(1);
+            }
+
+        }
+        return isInDay;
     }
+
 
     /**
      *
